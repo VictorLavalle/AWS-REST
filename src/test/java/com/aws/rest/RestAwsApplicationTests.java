@@ -1,4 +1,4 @@
-package com.aws.rrest;
+package com.aws.rest;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
