@@ -17,11 +17,9 @@ public class StudentController {
     @Autowired
     StudentRepository studentRepository;
 
-
-
     @GetMapping(path = "/students")
-    public List<Student> getAll (){
-        return  studentRepository.getAll();
+    public List<Student> getAll() {
+        return studentRepository.getAll();
     }
 
     /**
@@ -52,7 +50,9 @@ public class StudentController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    /**update Student
+    /**
+     * update Student
+     *
      * @param student
      * @return http status of the post request from the update
      */
@@ -66,6 +66,7 @@ public class StudentController {
 
     /**
      * delete Student
+     *
      * @param id
      * @return http status of the post request from the delete
      */
