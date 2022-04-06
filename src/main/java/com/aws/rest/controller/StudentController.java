@@ -4,7 +4,9 @@ import com.aws.rest.entity.Student;
 import com.aws.rest.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.http.HttpResponse;
@@ -48,10 +50,10 @@ public class StudentController {
      * @param student
      * @return http status of the post request
      */
-    @PostMapping(path = "/students")
-    public ResponseEntity<String> addStudent(@RequestBody Student student) {
+    @PostMapping(path = "/students", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> addStudent(@RequestBody @Validated Student student) {
         studentRepository.save(student);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<>("Student Added" , HttpStatus.CREATED);
     }
 
     /**
@@ -60,12 +62,12 @@ public class StudentController {
      * @param student
      * @return http status of the post request from the update
      */
-    @PutMapping(path = "/students/{id}")
-    public ResponseEntity<String> updateStudent(@RequestBody Student student) {
+    @PutMapping(path = "/students/{id}" , produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> updateStudent(@PathVariable Long id , @Validated @RequestBody Student student) {
         if (!studentRepository.update(student)) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>("Student Updated" ,HttpStatus.OK);
     }
 
     /**
@@ -75,11 +77,11 @@ public class StudentController {
      * @return http status of the post request from the delete
      */
     @DeleteMapping(path = "/students/{id}")
-    public ResponseEntity<HttpResponse> deleteStudent(@PathVariable long id) {
+    public ResponseEntity<String> deleteStudent(@PathVariable long id) {
         if (!studentRepository.delete(id)) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>("Student deleted" ,HttpStatus.OK);
     }
 
 }
