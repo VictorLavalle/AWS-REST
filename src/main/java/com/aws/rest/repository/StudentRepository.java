@@ -28,6 +28,11 @@ public class StudentRepository implements DAOStudent {
     }
 
 
+    /**
+     * Function get student id
+     * @param id
+     * @return the ID of each student in the students arraylist
+     */
     @Override
     public Student get(long id) {
         for (Student student : students) {
@@ -38,11 +43,22 @@ public class StudentRepository implements DAOStudent {
         return null;
     }
 
+
+    /**
+     * This function allow us to read the whole data of the arraylist
+     * @return Data from the arraylist 'students'
+     */
     @Override
     public List<Student> getAll() {
         return students;
     }
 
+
+    /**
+     * Function update
+     * @param student
+     * @return true or false and the new position of each element in the arraylist
+     */
     @Override
     public boolean update(Student student) {
         int index = getIndex(student.getId());
@@ -53,6 +69,12 @@ public class StudentRepository implements DAOStudent {
         return false;
     }
 
+
+    /**
+     * Function save student
+     * @param student
+     * @return new student's value and save it into the arraylist
+     */
     @Override
     public boolean save(Student student) {
         if (!students.isEmpty()) {
@@ -65,6 +87,12 @@ public class StudentRepository implements DAOStudent {
         return students.add(student);
     }
 
+
+    /**
+     * Function delete
+     * @param id
+     * @return true or false according to the answer of the function getIndex()
+     */
     @Override
     public boolean delete(long id) {
         int index = getIndex(id);
