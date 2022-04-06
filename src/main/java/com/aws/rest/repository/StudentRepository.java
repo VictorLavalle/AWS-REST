@@ -2,10 +2,12 @@ package com.aws.rest.repository;
 
 import com.aws.rest.DAO.DAOStudent;
 import com.aws.rest.entity.Student;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class StudentRepository implements DAOStudent {
 
     private final List<Student> students = new ArrayList<>();
