@@ -75,7 +75,7 @@ public class StudentRepository implements DAOStudent {
     /**
      * Function save student
      * @param student
-     * @return new student's value and save it into the arraylist
+     * @return new student's values and save it into the arraylist
      */
     @Override
     public boolean save(Student student) {
