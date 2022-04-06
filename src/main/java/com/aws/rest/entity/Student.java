@@ -96,6 +96,6 @@ public class Student {
                 ", name:" + name + '\'' +
                 ", lastName:" + lastName + '\'' +
                 ", average:" + average +
-                '}';
+                '}'+ "\n";
     }
 }
