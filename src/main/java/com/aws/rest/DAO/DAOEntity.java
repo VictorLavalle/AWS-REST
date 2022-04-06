@@ -8,7 +8,7 @@ public interface DAOEntity<T> {
 
     List<T> getAll();
 
-    boolean update(T t);
+    boolean update(long id , T t);
 
     boolean save(T t);
 

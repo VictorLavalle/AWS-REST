@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.net.http.HttpResponse;
 import java.util.List;
 
@@ -37,7 +38,8 @@ public class StudentController {
     @GetMapping(path = "/students/{id}")
     public ResponseEntity<Student> getStudent(@PathVariable long id) {
         Student student = studentRepository.get(id);
-        if (student == null) {
+        if (student == null
+        ) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(student, HttpStatus.OK);
@@ -51,7 +53,7 @@ public class StudentController {
      * @return http status of the post request
      */
     @PostMapping(path = "/students", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> addStudent(@RequestBody @Validated Student student) {
+    public ResponseEntity<String> addStudent(@RequestBody @Valid Student student) {
         studentRepository.save(student);
         return new ResponseEntity<>("Student Added" , HttpStatus.CREATED);
     }
@@ -63,11 +65,11 @@ public class StudentController {
      * @return http status of the post request from the update
      */
     @PutMapping(path = "/students/{id}" , produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> updateStudent(@PathVariable Long id , @Validated @RequestBody Student student) {
-        if (!studentRepository.update(student)) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    public ResponseEntity<String> updateStudent(@PathVariable Long id , @Valid @RequestBody Student student) {
+        if (!studentRepository.update(id, student)) {
+            return new ResponseEntity<>("Student: " , HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>("Student Updated" ,HttpStatus.OK);
+        return new ResponseEntity<>("Student Updated" , HttpStatus.OK);
     }
 
     /**
@@ -79,7 +81,7 @@ public class StudentController {
     @DeleteMapping(path = "/students/{id}")
     public ResponseEntity<String> deleteStudent(@PathVariable long id) {
         if (!studentRepository.delete(id)) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Student: " , HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>("Student deleted" ,HttpStatus.OK);
     }

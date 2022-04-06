@@ -1,28 +1,42 @@
 package com.aws.rest.entity;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PositiveOrZero;
+
 public class Student {
 
-    private Long id;
+    @NotNull(message = "Field must not be empty")
+    @PositiveOrZero(message = "ID cannot be negative")
+    private long id;
+
+    @NotEmpty(message = "Field must not be empty")
     private String registrationID;
+
+    @NotEmpty(message = "Field must not be empty")
     private String name;
+
+    @NotEmpty(message = "Field must not be empty")
     private String lastName;
-    private int average;
+
+    @NotNull (message = "Field must not be empty")
+    @PositiveOrZero (message = "Average cannot be negative")
+    private double average;
 
 
     /**
      * Constructors
      */
-    public Student() {
-    }
+    public Student() {}
 
-    public Student(String registrationID, String name, String lastName, int average) {
+    public Student(String registrationID, String name, String lastName, double average) {
         this.registrationID = registrationID;
         this.name = name;
         this.lastName = lastName;
         this.average = average;
     }
 
-    public Student(Long id, String registrationID, String name, String lastName, int average) {
+    public Student(long id, String registrationID, String name, String lastName, double average) {
         this.id = id;
         this.registrationID = registrationID;
         this.name = name;
@@ -37,7 +51,7 @@ public class Student {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -77,11 +91,11 @@ public class Student {
     /**
      * Student's average Getter & Setter
      */
-    public int getAverage() {
+    public double getAverage() {
         return average;
     }
 
-    public void setAverage(int average) {
+    public void setAverage(double average) {
         this.average = average;
     }
 

@@ -66,8 +66,8 @@ public class StudentRepository implements DAOStudent {
      * @return true or false and the new position of each element in the arraylist
      */
     @Override
-    public boolean update(Student student) {
-        int index = getIndex(student.getId());
+    public boolean update(long id, Student student) {
+        int index = getIndex(id);
         if (index > -1) {
             students.set(index, student);
             return true;
@@ -84,13 +84,6 @@ public class StudentRepository implements DAOStudent {
      */
     @Override
     public boolean save(Student student) {
-        if (!students.isEmpty()) {
-            int lastIndex = students.size() - 1;
-            long id = students.get(lastIndex).getId() + 1;
-            student.setId(id);
-            return students.add(student);
-        }
-        student.setId(1L);
         return students.add(student);
     }
 

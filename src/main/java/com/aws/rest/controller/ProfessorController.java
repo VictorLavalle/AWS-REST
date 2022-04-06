@@ -52,7 +52,7 @@ public class ProfessorController {
     @PostMapping(path = "/professors")
     public ResponseEntity<String> addProfessor(@RequestBody @Validated Professor professor) {
         professorRepository.save(professor);
-        return new ResponseEntity<>("Professor Added" ,HttpStatus.CREATED);
+        return new ResponseEntity<>("Professor Added", HttpStatus.CREATED);
     }
 
 
@@ -64,8 +64,8 @@ public class ProfessorController {
      */
     @PutMapping(path = "/professors/{id}")
     public ResponseEntity<String> updateProfessor(@PathVariable Long id, @RequestBody @Validated Professor professor) {
-        if (!professorRepository.update(professor)) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        if (!professorRepository.update(id, professor)) {
+            return new ResponseEntity<>("Professor: ", HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>("Professor updated", HttpStatus.OK);
     }
@@ -79,9 +79,9 @@ public class ProfessorController {
     @DeleteMapping(path = "/professors/{id}")
     public ResponseEntity<String> deleteTeacher(@PathVariable long id) {
         if (!professorRepository.delete(id)) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Professor: ", HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>("Professor deleted" , HttpStatus.OK);
+        return new ResponseEntity<>("Professor deleted", HttpStatus.OK);
     }
 
 }

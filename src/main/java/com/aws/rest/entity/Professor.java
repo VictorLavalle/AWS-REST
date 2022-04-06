@@ -1,12 +1,28 @@
 package com.aws.rest.entity;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PositiveOrZero;
+
 public class Professor {
 
+    @NotNull(message = "Field must not be empty")
+    @PositiveOrZero(message = "ID cannot be negative")
     private Long id;
-    private Long employeeNumber;
+
+    @NotNull(message = "Field must not be empty")
+    @PositiveOrZero(message = "employeeNumber cannot be negative")
+    private int employeeNumber;
+
+    @NotEmpty(message = "Field must not be empty")
     private String name;
+
+    @NotEmpty(message = "Field must not be empty")
     private String lastName;
-    private Float classHours;
+
+    @NotNull (message = "Field must not be empty")
+    @PositiveOrZero (message = "Class hours cannot be negative")
+    private int classHours;
 
     /**
      * Constructors
@@ -14,14 +30,14 @@ public class Professor {
     public Professor() {
     }
 
-    public Professor(Long employeeNumber, String name, String lastName, Float classHours) {
+    public Professor(int employeeNumber, String name, String lastName, int classHours) {
         this.employeeNumber = employeeNumber;
         this.name = name;
         this.lastName = lastName;
         this.classHours = classHours;
     }
 
-    public Professor(Long id, Long employeeNumber, String name, String lastName, Float classHours) {
+    public Professor(Long id, int employeeNumber, String name, String lastName, int classHours) {
         this.id = id;
         this.employeeNumber = employeeNumber;
         this.name = name;
@@ -43,11 +59,11 @@ public class Professor {
     /**
      * Professor's employeeNumber Getter & Setter
      */
-    public Long getEmployeeNumber() {
+    public int getEmployeeNumber() {
         return employeeNumber;
     }
 
-    public void setEmployeeNumber(Long employeeNumber) {
+    public void setEmployeeNumber(int employeeNumber) {
         this.employeeNumber = employeeNumber;
     }
 
@@ -76,11 +92,11 @@ public class Professor {
     /**
      * Professor's class hours Getter & Setter
      */
-    public Float getClassHours() {
+    public int getClassHours() {
         return classHours;
     }
 
-    public void setClassHours(Float classHours) {
+    public void setClassHours(int classHours) {
         this.classHours = classHours;
     }
 

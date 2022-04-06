@@ -12,7 +12,6 @@ public class ProfessorRepository implements DAOProfessor {
 
     private final ArrayList<Professor> professors = new ArrayList<>();
 
-
     /**
      * Function getIndex
      *
@@ -67,8 +66,8 @@ public class ProfessorRepository implements DAOProfessor {
      * @return true or false and the new position of each element in the arraylist
      */
     @Override
-    public boolean update(Professor professor) {
-        int index = getIndex(professor.getId());
+    public boolean update(long id , Professor professor) {
+        int index = getIndex(id);
         if (index > -1) {
             professors.set(index, professor);
             return true;
@@ -84,13 +83,6 @@ public class ProfessorRepository implements DAOProfessor {
      */
     @Override
     public boolean save(Professor professor) {
-        if (!professors.isEmpty()) {
-            int lastIndex = professors.size() - 1;
-            long id = professors.get(lastIndex).getId() + 1;
-            professor.setId(id);
-            return professors.add(professor);
-        }
-        professor.setId(1L);
         return professors.add(professor);
     }
 
