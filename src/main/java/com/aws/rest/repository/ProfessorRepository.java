@@ -96,6 +96,7 @@ public class ProfessorRepository implements DAOProfessor {
 
     /**
      * Function delete
+     *
      * @param id
      * @return true or false according to the answer of the function getIndex()
      */

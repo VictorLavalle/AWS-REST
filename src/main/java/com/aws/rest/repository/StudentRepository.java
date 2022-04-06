@@ -14,6 +14,7 @@ public class StudentRepository implements DAOStudent {
 
     /**
      * Function getIndex
+     *
      * @param id
      * @return the index of the arraylist or -1
      */
@@ -32,6 +33,7 @@ public class StudentRepository implements DAOStudent {
 
     /**
      * Function get student id
+     *
      * @param id
      * @return the ID of each student in the students arraylist
      */
@@ -48,6 +50,7 @@ public class StudentRepository implements DAOStudent {
 
     /**
      * This function allow us to read the whole data of the arraylist
+     *
      * @return Data from the arraylist 'students'
      */
     @Override
@@ -58,6 +61,7 @@ public class StudentRepository implements DAOStudent {
 
     /**
      * Function update
+     *
      * @param student
      * @return true or false and the new position of each element in the arraylist
      */
@@ -74,6 +78,7 @@ public class StudentRepository implements DAOStudent {
 
     /**
      * Function save student
+     *
      * @param student
      * @return new student's values and save it into the arraylist
      */
@@ -92,6 +97,7 @@ public class StudentRepository implements DAOStudent {
 
     /**
      * Function delete
+     *
      * @param id
      * @return true or false according to the answer of the function getIndex()
      */

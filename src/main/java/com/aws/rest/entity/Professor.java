@@ -11,9 +11,10 @@ public class Professor {
     /**
      * Constructors
      */
-    public Professor(){}
+    public Professor() {
+    }
 
-    public Professor( Long employeeNumber, String name, String lastName, Float classHours) {
+    public Professor(Long employeeNumber, String name, String lastName, Float classHours) {
         this.employeeNumber = employeeNumber;
         this.name = name;
         this.lastName = lastName;

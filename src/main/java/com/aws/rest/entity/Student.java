@@ -12,7 +12,8 @@ public class Student {
     /**
      * Constructors
      */
-    public Student() {}
+    public Student() {
+    }
 
     public Student(String registrationID, String name, String lastName, int average) {
         this.registrationID = registrationID;
@@ -72,6 +73,7 @@ public class Student {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
+
     /**
      * Student's average Getter & Setter
      */
