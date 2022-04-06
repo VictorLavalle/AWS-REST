@@ -17,13 +17,17 @@ public class StudentController {
     @Autowired
     StudentRepository studentRepository;
 
+    /**
+     * Get all the  'Students' objects
+     * @return the JSON of 'professor' objects
+     */
     @GetMapping(path = "/students")
     public List<Student> getAll() {
         return studentRepository.getAll();
     }
 
     /**
-     * Get Student from the repository
+     * Get Student from its repository
      *
      * @param id
      * @return the student's id and the http status of the request
@@ -57,7 +61,7 @@ public class StudentController {
      * @return http status of the post request from the update
      */
     @PutMapping(path = "/students/{id}")
-    public ResponseEntity<HttpStatus> updateStudent(@RequestBody Student student) {
+    public ResponseEntity<String> updateStudent(@RequestBody Student student) {
         if (!studentRepository.update(student)) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
