@@ -21,7 +21,7 @@ public class ProfessorController {
      *
      * @return the JSON of 'professor' objects
      */
-    @GetMapping(path = "/professor")
+    @GetMapping(path = "/professors")
     public List<Professor> getAll() {
         return professorRepository.getAll();
     }
