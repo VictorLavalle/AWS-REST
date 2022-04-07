@@ -1,10 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
 
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/style.css" />
+    <title>AWS - REST | Víctor Lavalle</title>
+    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+</head>
+
+<body>
+<div class="container">
+    <nav>
+        <ul>
+            <li id="about"> /students </li>
+            <li id="contact"> /professors </li>
+        </ul>
+    </nav>
+
+    <main>
+        <h1>aws-rest:$<span class="cursor">|</span></h1>
+    </main>
+</div>
+
+<div class="hidden">
+    <div id="about-content">
+        <h2>students:$<span class="cursor">|</span></h2>
+        <iframe class="frames" src="http://localhost:8080/students"></iframe>
+    </div>
+
+    <div id="contact-content">
+        <h2>professors:$<span class="cursor">|</span></h2>
+       <iframe class="frames" src="http://localhost:8080/professors"></iframe>
+    </div>
+</div>
+
+<script defer src="/js/winbox.bundle.js"></script>
+<script defer src="/js/main.js"></script>
 </body>
+
 </html>
