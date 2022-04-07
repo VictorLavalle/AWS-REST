@@ -52,11 +52,11 @@ public class ProfessorsApiTest {
     @Test
     public void testPostProfesor() {
 
-        Map<String, Object> alumno = getProfessor();
+        Map<String, Object> profesor = getProfessor();
 
         given().spec(SPEC)
                 .contentType(ContentType.JSON)
-                .body(alumno)
+                .body(profesor)
                 .post("/professors")
                 .then()
                 .statusCode(201).contentType(ContentType.JSON);
