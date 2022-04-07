@@ -3,7 +3,7 @@
 This project is a REST that will be hosted in EC2 (AWS)
 
 ## Instalation ⚙️
-1. Clone the repository or download the zip file.
+1. Clone the repository or download the <a href="https://github.com/VictorLavalle/AWS-REST/releases/tag/v1.0"> zip file </a>.
 2. Move to the folder
 3. If you want to check the code open it in your IDE, if only wants to test it go to the folder `release`
 4. Locate the file `REST-AWS-VL.jar`
