@@ -24,7 +24,7 @@ public class StudentController {
      * Get all the  'Students' objects
      * @return the JSON of 'professor' objects
      */
-    @GetMapping(path = "/students")
+    @GetMapping(path = "/alumnos")
     public List<Student> getAll() {
         return studentRepository.getAll();
     }
@@ -35,7 +35,7 @@ public class StudentController {
      * @param id
      * @return the student's id and the http status of the request
      */
-    @GetMapping(path = "/students/{id}")
+    @GetMapping(path = "/alumnos/{id}")
     public ResponseEntity<Student> getStudent(@PathVariable long id) {
         Student student = studentRepository.get(id);
         if (student == null
@@ -52,7 +52,7 @@ public class StudentController {
      * @param student
      * @return http status of the post request
      */
-    @PostMapping(path = "/students", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(path = "/alumnos", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> addStudent(@RequestBody @Valid Student student) {
         studentRepository.save(student);
         return new ResponseEntity<>("Student Added" , HttpStatus.CREATED);
@@ -64,7 +64,7 @@ public class StudentController {
      * @param student
      * @return http status of the post request from the update
      */
-    @PutMapping(path = "/students/{id}" , produces = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(path = "/alumnos/{id}" , produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> updateStudent(@PathVariable Long id , @Valid @RequestBody Student student) {
         if (!studentRepository.update(id, student)) {
             return new ResponseEntity<>("Student: " , HttpStatus.NOT_FOUND);
@@ -78,7 +78,7 @@ public class StudentController {
      * @param id
      * @return http status of the post request from the delete
      */
-    @DeleteMapping(path = "/students/{id}")
+    @DeleteMapping(path = "/alumnos/{id}")
     public ResponseEntity<String> deleteStudent(@PathVariable long id) {
         if (!studentRepository.delete(id)) {
             return new ResponseEntity<>("Student: " , HttpStatus.NOT_FOUND);

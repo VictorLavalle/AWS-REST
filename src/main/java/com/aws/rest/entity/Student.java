@@ -11,17 +11,17 @@ public class Student {
     private long id;
 
     @NotEmpty(message = "Field must not be empty")
-    private String registrationID;
+    private String matricula;
 
     @NotEmpty(message = "Field must not be empty")
-    private String name;
+    private String nombres;
 
     @NotEmpty(message = "Field must not be empty")
-    private String lastName;
+    private String apellidos;
 
     @NotNull (message = "Field must not be empty")
     @PositiveOrZero (message = "Average cannot be negative")
-    private double average;
+    private double promedio;
 
 
     /**
@@ -29,19 +29,19 @@ public class Student {
      */
     public Student() {}
 
-    public Student(String registrationID, String name, String lastName, double average) {
-        this.registrationID = registrationID;
-        this.name = name;
-        this.lastName = lastName;
-        this.average = average;
+    public Student(String matricula, String nombres, String apellidos, double promedio) {
+        this.matricula = matricula;
+        this.nombres = nombres;
+        this.apellidos = apellidos;
+        this.promedio = promedio;
     }
 
-    public Student(long id, String registrationID, String name, String lastName, double average) {
+    public Student(long id, String matricula, String nombres, String apellidos, double promedio) {
         this.id = id;
-        this.registrationID = registrationID;
-        this.name = name;
-        this.lastName = lastName;
-        this.average = average;
+        this.matricula = matricula;
+        this.nombres = nombres;
+        this.apellidos = apellidos;
+        this.promedio = promedio;
     }
 
     /**
@@ -56,47 +56,47 @@ public class Student {
     }
 
     /**
-     * registrationID Getter & Setter
+     * matricula Getter & Setter
      */
-    public String getRegistrationID() {
-        return registrationID;
+    public String getMatricula() {
+        return matricula;
     }
 
-    public void setRegistrationID(String registrationID) {
-        this.registrationID = registrationID;
+    public void setMatricula(String matricula) {
+        this.matricula = matricula;
     }
 
     /**
      * Student's name Getter & Setter
      */
-    public String getName() {
-        return name;
+    public String getNombres() {
+        return nombres;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setNombres(String nombres) {
+        this.nombres = nombres;
     }
 
     /**
-     * Student's name Getter & Setter
+     * Student's nombres Getter & Setter
      */
-    public String getLastName() {
-        return lastName;
+    public String getApellidos() {
+        return apellidos;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setApellidos(String apellidos) {
+        this.apellidos = apellidos;
     }
 
     /**
      * Student's average Getter & Setter
      */
-    public double getAverage() {
-        return average;
+    public double getPromedio() {
+        return promedio;
     }
 
-    public void setAverage(double average) {
-        this.average = average;
+    public void setPromedio(double promedio) {
+        this.promedio = promedio;
     }
 
     /**
@@ -106,10 +106,10 @@ public class Student {
     public String toString() {
         return "Student{" +
                 "id:" + id +
-                ", registrationID:" + registrationID +
-                ", name:" + name + '\'' +
-                ", lastName:" + lastName + '\'' +
-                ", average:" + average +
+                ", matricula:" + matricula +
+                ", nombres:" + nombres + '\'' +
+                ", apellidos:" + apellidos + '\'' +
+                ", promedio:" + promedio +
                 '}'+ "\n";
     }
 }

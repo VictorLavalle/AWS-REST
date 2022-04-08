@@ -22,7 +22,7 @@ public class ProfessorController {
      *
      * @return the JSON of 'professor' objects
      */
-    @GetMapping(path = "/professors")
+    @GetMapping(path = "/profesores")
     public List<Professor> getAll() {
         return professorRepository.getAll();
     }
@@ -33,7 +33,7 @@ public class ProfessorController {
      * @param id
      * @return the professor's id and the http status of the request
      */
-    @GetMapping(path = "/professors/{id}")
+    @GetMapping(path = "/profesores/{id}")
     public ResponseEntity<Professor> getTeacher(@PathVariable long id) {
         Professor professor = professorRepository.get(id);
         if (professor == null) {
@@ -49,7 +49,7 @@ public class ProfessorController {
      * @param professor
      * @return http status of the post request
      */
-    @PostMapping(path = "/professors")
+    @PostMapping(path = "/profesores")
     public ResponseEntity<String> addProfessor(@RequestBody @Validated Professor professor) {
         professorRepository.save(professor);
         return new ResponseEntity<>("Professor Added", HttpStatus.CREATED);
@@ -62,7 +62,7 @@ public class ProfessorController {
      * @param professor
      * @return http status of the post request from the update
      */
-    @PutMapping(path = "/professors/{id}")
+    @PutMapping(path = "/profesores/{id}")
     public ResponseEntity<String> updateProfessor(@PathVariable Long id, @RequestBody @Validated Professor professor) {
         if (!professorRepository.update(id, professor)) {
             return new ResponseEntity<>("Professor: ", HttpStatus.NOT_FOUND);
@@ -76,7 +76,7 @@ public class ProfessorController {
      * @param id
      * @return http status of the post request from the delete
      */
-    @DeleteMapping(path = "/professors/{id}")
+    @DeleteMapping(path = "/profesores/{id}")
     public ResponseEntity<String> deleteTeacher(@PathVariable long id) {
         if (!professorRepository.delete(id)) {
             return new ResponseEntity<>("Professor: ", HttpStatus.NOT_FOUND);

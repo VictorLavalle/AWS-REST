@@ -12,17 +12,17 @@ public class Professor {
 
     @NotNull(message = "Field must not be empty")
     @PositiveOrZero(message = "employeeNumber cannot be negative")
-    private int employeeNumber;
+    private int numeroEmpleado;
 
     @NotEmpty(message = "Field must not be empty")
-    private String name;
+    private String nombres;
 
     @NotEmpty(message = "Field must not be empty")
-    private String lastName;
+    private String apellidos;
 
     @NotNull (message = "Field must not be empty")
     @PositiveOrZero (message = "Class hours cannot be negative")
-    private int classHours;
+    private int horasClase;
 
     /**
      * Constructors
@@ -30,19 +30,19 @@ public class Professor {
     public Professor() {
     }
 
-    public Professor(int employeeNumber, String name, String lastName, int classHours) {
-        this.employeeNumber = employeeNumber;
-        this.name = name;
-        this.lastName = lastName;
-        this.classHours = classHours;
+    public Professor(int numeroEmpleado, String nombres, String apellidos, int horasClase) {
+        this.numeroEmpleado = numeroEmpleado;
+        this.nombres = nombres;
+        this.apellidos = apellidos;
+        this.horasClase = horasClase;
     }
 
-    public Professor(Long id, int employeeNumber, String name, String lastName, int classHours) {
+    public Professor(Long id, int numeroEmpleado, String nombres, String apellidos, int horasClase) {
         this.id = id;
-        this.employeeNumber = employeeNumber;
-        this.name = name;
-        this.lastName = lastName;
-        this.classHours = classHours;
+        this.numeroEmpleado = numeroEmpleado;
+        this.nombres = nombres;
+        this.apellidos = apellidos;
+        this.horasClase = horasClase;
     }
 
     /**
@@ -59,55 +59,55 @@ public class Professor {
     /**
      * Professor's employeeNumber Getter & Setter
      */
-    public int getEmployeeNumber() {
-        return employeeNumber;
+    public int getNumeroEmpleado() {
+        return numeroEmpleado;
     }
 
-    public void setEmployeeNumber(int employeeNumber) {
-        this.employeeNumber = employeeNumber;
+    public void setNumeroEmpleado(int numeroEmpleado) {
+        this.numeroEmpleado = numeroEmpleado;
     }
 
     /**
      * Professor's name Getter & Setter
      */
-    public String getName() {
-        return name;
+    public String getNombres() {
+        return nombres;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setNombres(String nombres) {
+        this.nombres = nombres;
     }
 
     /**
      * Professor's last name Getter & Setter
      */
-    public String getLastName() {
-        return lastName;
+    public String getApellidos() {
+        return apellidos;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setApellidos(String apellidos) {
+        this.apellidos = apellidos;
     }
 
     /**
      * Professor's class hours Getter & Setter
      */
-    public int getClassHours() {
-        return classHours;
+    public int getHorasClase() {
+        return horasClase;
     }
 
-    public void setClassHours(int classHours) {
-        this.classHours = classHours;
+    public void setHorasClase(int horasClase) {
+        this.horasClase = horasClase;
     }
 
     @Override
     public String toString() {
         return "Professor{" +
                 "id:" + id +
-                ", employeeNumber:" + employeeNumber +
-                ", name:'" + name + '\'' +
-                ", lastName:'" + lastName + '\'' +
-                ", classHours:'" + classHours + '\'' +
+                ", numeroEmpleado:" + numeroEmpleado +
+                ", nombres:'" + nombres + '\'' +
+                ", apellidos:'" + apellidos + '\'' +
+                ", horasClase:'" + horasClase + '\'' +
                 '}';
     }
 }
