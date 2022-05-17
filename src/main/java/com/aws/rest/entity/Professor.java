@@ -1,13 +1,26 @@
 package com.aws.rest.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
 
+@Entity
+@Table(name = "profesor")
+@Getter
+@Setter
 public class Professor {
 
-    @NotNull(message = "Field must not be empty")
-    @PositiveOrZero(message = "ID cannot be negative")
+    private static final long serialVersionUID = 1L;
+
+    /*    @NotNull(message = "Field must not be empty")
+        @PositiveOrZero(message = "ID cannot be negative")*/
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_profesor")
     private Long id;
 
     @NotNull(message = "Field must not be empty")
@@ -20,8 +33,8 @@ public class Professor {
     @NotEmpty(message = "Field must not be empty")
     private String apellidos;
 
-    @NotNull (message = "Field must not be empty")
-    @PositiveOrZero (message = "Class hours cannot be negative")
+    @NotNull(message = "Field must not be empty")
+    @PositiveOrZero(message = "Class hours cannot be negative")
     private int horasClase;
 
     /**
@@ -45,9 +58,9 @@ public class Professor {
         this.horasClase = horasClase;
     }
 
-    /**
+/*    *//**
      * Professor's id Getter & Setter
-     */
+     *//*
     public Long getId() {
         return id;
     }
@@ -56,9 +69,9 @@ public class Professor {
         this.id = id;
     }
 
-    /**
+    *//**
      * Professor's employeeNumber Getter & Setter
-     */
+     *//*
     public int getNumeroEmpleado() {
         return numeroEmpleado;
     }
@@ -67,9 +80,9 @@ public class Professor {
         this.numeroEmpleado = numeroEmpleado;
     }
 
-    /**
+    *//**
      * Professor's name Getter & Setter
-     */
+     *//*
     public String getNombres() {
         return nombres;
     }
@@ -78,9 +91,9 @@ public class Professor {
         this.nombres = nombres;
     }
 
-    /**
+    *//**
      * Professor's last name Getter & Setter
-     */
+     *//*
     public String getApellidos() {
         return apellidos;
     }
@@ -89,16 +102,16 @@ public class Professor {
         this.apellidos = apellidos;
     }
 
-    /**
+    *//**
      * Professor's class hours Getter & Setter
-     */
+     *//*
     public int getHorasClase() {
         return horasClase;
     }
 
     public void setHorasClase(int horasClase) {
         this.horasClase = horasClase;
-    }
+    }*/
 
     @Override
     public String toString() {
