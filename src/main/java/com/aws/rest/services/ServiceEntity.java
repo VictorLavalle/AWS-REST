@@ -1,14 +1,14 @@
-package com.aws.rest.DAO;
+package com.aws.rest.services;
 
 import java.util.List;
 
-public interface DAOEntity<T> {
+public interface ServiceEntity<T> {
 
     T get(long id);
 
     List<T> getAll();
 
-    boolean update(long id , T t);
+    boolean update(long id, T t);
 
     boolean save(T t);
 

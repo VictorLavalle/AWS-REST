@@ -2,60 +2,38 @@ package com.aws.rest.repository;
 
 import com.aws.rest.DAO.DAOProfessor;
 import com.aws.rest.entity.Professor;
+import com.aws.rest.services.ServiceProfessor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
-public class ProfessorRepository implements DAOProfessor {
+public class ProfessorRepository implements ServiceProfessor {
 
-    private final ArrayList<Professor> professors = new ArrayList<>();
-
-    /**
-     * Function getIndex
-     *
-     * @param id
-     * @return the index of the arraylist or -1
-     */
-    private int getIndex(long id) {
-        int index = -1;
-        if (professors.isEmpty()) return index;
-        for (Professor professor : professors) {
-            index++;
-            if (professor.getId().equals(id)) {
-                return index;
-            }
-        }
-        return -1;
-    }
-
+    @Autowired
+    private DAOProfessor daoProfesor;
 
     /**
-     * Function get student id
+     * Function get Professor
      *
      * @param id
-     * @return the ID of each professor in the professor arraylist
+     * @return the index of the professor list
      */
     @Override
     public Professor get(long id) {
-        for (Professor professor : professors) {
-            if (professor.getId().equals(id)) {
-                return professor;
-            }
-        }
-        return null;
+        return daoProfesor.findById(id).orElse(null);
     }
 
-
     /**
-     * This function allow us to read the whole data of the arraylist
+     * This function allow us to read the whole data of the list
      *
-     * @return Data from the arraylist 'students'
+     * @return Data from the list 'professors'
      */
     @Override
     public List<Professor> getAll() {
-        return professors;
+        return (List<Professor>) daoProfesor.findAll();
     }
 
 
@@ -66,13 +44,19 @@ public class ProfessorRepository implements DAOProfessor {
      * @return true or false and the new position of each element in the arraylist
      */
     @Override
-    public boolean update(long id , Professor professor) {
-        int index = getIndex(id);
-        if (index > -1) {
-            professors.set(index, professor);
-            return true;
+    public boolean update(long id, Professor professor) {
+        if (!daoProfesor.existsById(id)) {
+            return false;
         }
-        return false;
+        Optional<Professor> optionalProfesor = daoProfesor.findById(id);
+        Professor profesorFromDB = optionalProfesor.get();
+        profesorFromDB.setNombres(professor.getNombres());
+        profesorFromDB.setApellidos(professor.getApellidos());
+        profesorFromDB.setHorasClase(professor.getHorasClase());
+        profesorFromDB.setNumeroEmpleado(professor.getNumeroEmpleado());
+
+        daoProfesor.save(profesorFromDB);
+        return true;
     }
 
     /**
@@ -83,7 +67,13 @@ public class ProfessorRepository implements DAOProfessor {
      */
     @Override
     public boolean save(Professor professor) {
-        return professors.add(professor);
+        try {
+            daoProfesor.save(professor);
+            return true;
+        }catch (Exception exception){
+            System.out.println(exception.getMessage()+" Couldn't save the entity");
+            return false;
+        }
     }
 
     /**
@@ -94,11 +84,10 @@ public class ProfessorRepository implements DAOProfessor {
      */
     @Override
     public boolean delete(long id) {
-        int index = getIndex(id);
-        if (index > -1) {
-            professors.remove(index);
-            return true;
+        if (!daoProfesor.existsById(id)){
+            return false;
         }
-        return false;
+        daoProfesor.deleteById(id);
+        return true;
     }
 }

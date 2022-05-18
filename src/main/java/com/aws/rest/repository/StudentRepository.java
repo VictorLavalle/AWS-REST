@@ -2,49 +2,29 @@ package com.aws.rest.repository;
 
 import com.aws.rest.DAO.DAOStudent;
 import com.aws.rest.entity.Student;
+import com.aws.rest.services.ServiceStudent;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
-public class StudentRepository implements DAOStudent {
+public class StudentRepository implements ServiceStudent {
 
-    private final List<Student> students = new ArrayList<>();
-
-    /**
-     * Function getIndex
-     *
-     * @param id
-     * @return the index of the arraylist or -1
-     */
-    private int getIndex(long id) {
-        int index = -1;
-        if (students.isEmpty()) return index;
-        for (Student student : students) {
-            index++;
-            if (student.getId().equals(id)) {
-                return index;
-            }
-        }
-        return -1;
-    }
+    @Autowired
+    private DAOStudent daoStudent;
 
 
     /**
      * Function get student id
      *
      * @param id
-     * @return the ID of each student in the students arraylist
+     * @return the ID of each student in the students list
      */
     @Override
     public Student get(long id) {
-        for (Student student : students) {
-            if (student.getId().equals(id)) {
-                return student;
-            }
-        }
-        return null;
+        return daoStudent.findById(id).orElse(null);
     }
 
 
@@ -55,7 +35,7 @@ public class StudentRepository implements DAOStudent {
      */
     @Override
     public List<Student> getAll() {
-        return students;
+        return (List<Student>) daoStudent.findAll();
     }
 
 
@@ -67,12 +47,19 @@ public class StudentRepository implements DAOStudent {
      */
     @Override
     public boolean update(long id, Student student) {
-        int index = getIndex(id);
-        if (index > -1) {
-            students.set(index, student);
-            return true;
+        if (!daoStudent.existsById(id)){
+            return false;
         }
-        return false;
+        Optional<Student> studentOptional = daoStudent.findById(id);
+        Student studentFromDB = studentOptional.get();
+
+        studentFromDB.setNombres(student.getNombres());
+        studentFromDB.setApellidos(student.getApellidos());
+        studentFromDB.setMatricula(student.getMatricula());
+        studentFromDB.setPromedio(student.getPromedio());
+
+        daoStudent.save(studentFromDB);
+        return true;
     }
 
 
@@ -80,11 +67,17 @@ public class StudentRepository implements DAOStudent {
      * Function save student
      *
      * @param student
-     * @return new student's values and save it into the arraylist
+     * @return new student's values and save it
      */
     @Override
     public boolean save(Student student) {
-        return students.add(student);
+        try {
+            daoStudent.save(student);
+            return true;
+        }catch (Exception exception){
+            System.out.println(exception.getMessage());
+            return false;
+        }
     }
 
 
@@ -92,16 +85,15 @@ public class StudentRepository implements DAOStudent {
      * Function delete
      *
      * @param id
-     * @return true or false according to the answer of the function getIndex()
+     * @return true or false
      */
     @Override
     public boolean delete(long id) {
-        int index = getIndex(id);
-        if (index > -1) {
-            students.remove(index);
-            return true;
+        if (!daoStudent.existsById(id)){
+            return false;
         }
-        return false;
+        daoStudent.deleteById(id);
+        return true;
     }
 
 }
