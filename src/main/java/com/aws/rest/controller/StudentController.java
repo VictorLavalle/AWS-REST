@@ -6,11 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.net.http.HttpResponse;
 import java.util.List;
 
 @RestController
@@ -22,6 +20,7 @@ public class StudentController {
 
     /**
      * Get all the  'Students' objects
+     *
      * @return the JSON of 'professor' objects
      */
     @GetMapping(path = "/alumnos")
@@ -38,8 +37,7 @@ public class StudentController {
     @GetMapping(path = "/alumnos/{id}")
     public ResponseEntity<Student> getStudent(@PathVariable long id) {
         Student student = studentRepository.get(id);
-        if (student == null
-        ) {
+        if (student == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(student, HttpStatus.OK);
@@ -55,7 +53,11 @@ public class StudentController {
     @PostMapping(path = "/alumnos", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> addStudent(@RequestBody @Valid Student student) {
         studentRepository.save(student);
-        return new ResponseEntity<>("Student Added" , HttpStatus.CREATED);
+        List<Student> estudiantes = studentRepository.getAll();
+        int size = estudiantes.size();
+        Student lastEstudiante;
+        lastEstudiante = estudiantes.get(size - 1);
+        return new ResponseEntity<>("Student Added" + "{\"id\":" + lastEstudiante.getId() + '}', HttpStatus.CREATED);
     }
 
     /**
@@ -64,12 +66,12 @@ public class StudentController {
      * @param student
      * @return http status of the post request from the update
      */
-    @PutMapping(path = "/alumnos/{id}" , produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> updateStudent(@PathVariable Long id , @Valid @RequestBody Student student) {
+    @PutMapping(path = "/alumnos/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> updateStudent(@PathVariable Long id, @Valid @RequestBody Student student) {
         if (!studentRepository.update(id, student)) {
-            return new ResponseEntity<>("Student: " , HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Student: ", HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>("Student Updated" , HttpStatus.OK);
+        return new ResponseEntity<>("Student Updated", HttpStatus.OK);
     }
 
     /**
@@ -81,9 +83,9 @@ public class StudentController {
     @DeleteMapping(path = "/alumnos/{id}")
     public ResponseEntity<String> deleteStudent(@PathVariable long id) {
         if (!studentRepository.delete(id)) {
-            return new ResponseEntity<>("Student: " , HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Student: ", HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>("Student deleted" ,HttpStatus.OK);
+        return new ResponseEntity<>("Student deleted", HttpStatus.OK);
     }
 
 }

@@ -21,8 +21,8 @@ public class Professor {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @NotNull(message = "Field must not be empty")
-    @PositiveOrZero(message = "ID cannot be negative")
+/*    @NotNull(message = "Field must not be empty")
+    @PositiveOrZero(message = "ID cannot be negative")*/
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_profesor")
     private Long id;

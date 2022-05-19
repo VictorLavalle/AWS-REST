@@ -4,10 +4,11 @@ import com.aws.rest.entity.Professor;
 import com.aws.rest.repository.ProfessorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -49,10 +50,14 @@ public class ProfessorController {
      * @param professor
      * @return http status of the post request
      */
-    @PostMapping(path = "/profesores")
-    public ResponseEntity<String> addProfessor(@RequestBody @Validated Professor professor) {
+    @PostMapping(path = "/profesores", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> addProfessor(@RequestBody @Valid Professor professor) {
         professorRepository.save(professor);
-        return new ResponseEntity<>("Professor Added", HttpStatus.CREATED);
+        List<Professor> professors = professorRepository.getAll();
+        int size = professors.size();
+        Professor lastProfessor;
+        lastProfessor = professors.get(size-1);
+        return new ResponseEntity<>("Professor Added " + "{\"id\":" +lastProfessor.getId()+'}', HttpStatus.CREATED);
     }
 
 
@@ -62,8 +67,8 @@ public class ProfessorController {
      * @param professor
      * @return http status of the post request from the update
      */
-    @PutMapping(path = "/profesores/{id}")
-    public ResponseEntity<String> updateProfessor(@PathVariable Long id, @RequestBody @Validated Professor professor) {
+    @PutMapping(path = "/profesores/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> updateProfessor(@PathVariable long id, @RequestBody @Valid Professor professor) {
         if (!professorRepository.update(id, professor)) {
             return new ResponseEntity<>("Professor: ", HttpStatus.NOT_FOUND);
         }
