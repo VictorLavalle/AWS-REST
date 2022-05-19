@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/", produces = "application/json")
@@ -25,7 +26,7 @@ public class ProfessorController {
      */
     @GetMapping(path = "/profesores")
     public List<Professor> getAll() {
-        return professorRepository.getAll();
+        return professorRepository.findAll();
     }
 
     /**
@@ -36,11 +37,11 @@ public class ProfessorController {
      */
     @GetMapping(path = "/profesores/{id}")
     public ResponseEntity<Professor> getTeacher(@PathVariable long id) {
-        Professor professor = professorRepository.get(id);
-        if (professor == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        Optional<Professor> professorOptional = professorRepository.findById(id);
+        if (professorOptional.isEmpty()) {
+           throw new RuntimeException("Professor Not found");
         }
-        return new ResponseEntity<>(professor, HttpStatus.OK);
+        return new ResponseEntity<>(professorOptional.get(), HttpStatus.OK);
     }
 
 
@@ -52,12 +53,8 @@ public class ProfessorController {
      */
     @PostMapping(path = "/profesores", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> addProfessor(@RequestBody @Valid Professor professor) {
-        professorRepository.save(professor);
-        List<Professor> professors = professorRepository.getAll();
-        int size = professors.size();
-        Professor lastProfessor;
-        lastProfessor = professors.get(size-1);
-        return new ResponseEntity<>("Professor Added " + "{\"id\":" +lastProfessor.getId()+'}', HttpStatus.CREATED);
+        professorRepository.saveAndFlush(professor);
+        return new ResponseEntity<>("Professor Added " + "{\"id\":" + professor.getId() + '}', HttpStatus.CREATED);
     }
 
 
@@ -68,10 +65,11 @@ public class ProfessorController {
      * @return http status of the post request from the update
      */
     @PutMapping(path = "/profesores/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> updateProfessor(@PathVariable long id, @RequestBody @Valid Professor professor) {
-        if (!professorRepository.update(id, professor)) {
+    public ResponseEntity<String> updateProfessor(@PathVariable Long id, @RequestBody @Valid Professor professor) {
+        if (professorRepository.findById(id).isEmpty()) {
             return new ResponseEntity<>("Professor: ", HttpStatus.NOT_FOUND);
         }
+        professorRepository.save(professor);
         return new ResponseEntity<>("Professor updated", HttpStatus.OK);
     }
 
@@ -84,10 +82,12 @@ public class ProfessorController {
      */
     @DeleteMapping(path = "/profesores/{id}")
     public ResponseEntity<String> deleteTeacher(@PathVariable long id) {
-        if (!professorRepository.delete(id)) {
+        Optional<Professor> professorOptional = professorRepository.findById(id);
+        if (professorOptional.isEmpty()) {
             return new ResponseEntity<>("Professor: ", HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>("Professor deleted", HttpStatus.OK);
+        professorRepository.delete(professorOptional.get());
+        return new ResponseEntity<>("Professor updated", HttpStatus.OK);
     }
 
 }

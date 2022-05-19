@@ -18,11 +18,9 @@ public class Student {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @NotNull(message = "Field must not be empty")
-    @PositiveOrZero(message = "ID cannot be negative")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_estudiante")
-    private long id;
+    private Long id;
 
     @NotEmpty(message = "Field must not be empty")
     private String matricula;
@@ -37,13 +35,11 @@ public class Student {
     @PositiveOrZero (message = "Average cannot be negative")
     private double promedio;
 
-    @NotNull (message = "Missing value")
     private String fotoPerfilUrl;
-
-
-    /**
+/*
+    *//**
      * Student's data
-     */
+     *//*
     @Override
     public String toString() {
         return "Student{" +
@@ -53,5 +49,5 @@ public class Student {
                 ", apellidos:" + apellidos + '\'' +
                 ", promedio:" + promedio +
                 '}'+ "\n";
-    }
+    }*/
 }
