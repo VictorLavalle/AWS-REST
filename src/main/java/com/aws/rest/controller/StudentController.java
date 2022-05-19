@@ -44,7 +44,7 @@ public class StudentController {
     public ResponseEntity<Student> getStudent(@PathVariable long id) {
         Optional<Student> studentOptional = studentRepository.findById(id);
         if (studentOptional.isEmpty()) {
-            throw new RuntimeException("Student Not found");
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(studentOptional.get(), HttpStatus.OK);
     }
@@ -59,7 +59,7 @@ public class StudentController {
     @PostMapping(path = "/alumnos", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> addStudent(@RequestBody @Valid Student student) {
         studentRepository.saveAndFlush(student);
-        return new ResponseEntity<>("Student Added " + "{\"id\":" + student.getId() + '}', HttpStatus.CREATED);
+        return new ResponseEntity<>("{\"id\":" + student.getId() + '}', HttpStatus.CREATED);
     }
 
     /**
@@ -71,8 +71,9 @@ public class StudentController {
     @PutMapping(path = "/alumnos/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> updateStudent(@PathVariable Long id, @Valid @RequestBody Student student) {
         if (studentRepository.findById(id).isEmpty()) {
-            return new ResponseEntity<>("Student: ", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+        student.setId(id);
         studentRepository.save(student);
         return new ResponseEntity<>("Student updated", HttpStatus.OK);
     }
@@ -87,7 +88,7 @@ public class StudentController {
     public ResponseEntity<String> deleteStudent(@PathVariable long id) {
         Optional<Student> studentOptional = studentRepository.findById(id);
         if (studentOptional.isEmpty()) {
-            return new ResponseEntity<>("Student: ", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         studentRepository.delete(studentOptional.get());
         return new ResponseEntity<>("Professor updated", HttpStatus.OK);

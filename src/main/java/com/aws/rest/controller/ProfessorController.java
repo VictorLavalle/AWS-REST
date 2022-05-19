@@ -39,7 +39,7 @@ public class ProfessorController {
     public ResponseEntity<Professor> getTeacher(@PathVariable long id) {
         Optional<Professor> professorOptional = professorRepository.findById(id);
         if (professorOptional.isEmpty()) {
-           throw new RuntimeException("Professor Not found");
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(professorOptional.get(), HttpStatus.OK);
     }
@@ -54,7 +54,8 @@ public class ProfessorController {
     @PostMapping(path = "/profesores", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> addProfessor(@RequestBody @Valid Professor professor) {
         professorRepository.saveAndFlush(professor);
-        return new ResponseEntity<>("Professor Added " + "{\"id\":" + professor.getId() + '}', HttpStatus.CREATED);
+        System.out.println("****************"+professor.getId());
+        return new ResponseEntity<>("{\"id\":" + professor.getId() + '}', HttpStatus.CREATED);
     }
 
 
@@ -67,12 +68,12 @@ public class ProfessorController {
     @PutMapping(path = "/profesores/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> updateProfessor(@PathVariable Long id, @RequestBody @Valid Professor professor) {
         if (professorRepository.findById(id).isEmpty()) {
-            return new ResponseEntity<>("Professor: ", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+        professor.setId(id);
         professorRepository.save(professor);
         return new ResponseEntity<>("Professor updated", HttpStatus.OK);
     }
-
 
     /**
      * delete Professor
