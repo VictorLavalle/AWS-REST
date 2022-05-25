@@ -20,4 +20,4 @@ This project is a REST that will be hosted in EC2 (AWS)
 <hr>
 
 ## Coming Up  🚀 
-AWS Launch  [Here will be the ip address of the project]
+Version 2.0 already release
