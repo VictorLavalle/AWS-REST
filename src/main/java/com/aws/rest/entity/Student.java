@@ -1,14 +1,26 @@
 package com.aws.rest.entity;
 
+import lombok.*;
+import javax.persistence.*;
+import java.io.Serializable;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
+@Table(name = "estudiante")
 public class Student {
 
-    @NotNull(message = "Field must not be empty")
-    @PositiveOrZero(message = "ID cannot be negative")
-    private long id;
+    private static final long serialVersionUID = 1L;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_estudiante")
+    private Long id;
 
     @NotEmpty(message = "Field must not be empty")
     private String matricula;
@@ -23,85 +35,11 @@ public class Student {
     @PositiveOrZero (message = "Average cannot be negative")
     private double promedio;
 
-
-    /**
-     * Constructors
-     */
-    public Student() {}
-
-    public Student(String matricula, String nombres, String apellidos, double promedio) {
-        this.matricula = matricula;
-        this.nombres = nombres;
-        this.apellidos = apellidos;
-        this.promedio = promedio;
-    }
-
-    public Student(long id, String matricula, String nombres, String apellidos, double promedio) {
-        this.id = id;
-        this.matricula = matricula;
-        this.nombres = nombres;
-        this.apellidos = apellidos;
-        this.promedio = promedio;
-    }
-
-    /**
-     * id Getter & Setter
-     */
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    /**
-     * matricula Getter & Setter
-     */
-    public String getMatricula() {
-        return matricula;
-    }
-
-    public void setMatricula(String matricula) {
-        this.matricula = matricula;
-    }
-
-    /**
-     * Student's name Getter & Setter
-     */
-    public String getNombres() {
-        return nombres;
-    }
-
-    public void setNombres(String nombres) {
-        this.nombres = nombres;
-    }
-
-    /**
-     * Student's nombres Getter & Setter
-     */
-    public String getApellidos() {
-        return apellidos;
-    }
-
-    public void setApellidos(String apellidos) {
-        this.apellidos = apellidos;
-    }
-
-    /**
-     * Student's average Getter & Setter
-     */
-    public double getPromedio() {
-        return promedio;
-    }
-
-    public void setPromedio(double promedio) {
-        this.promedio = promedio;
-    }
-
-    /**
+    private String fotoPerfilUrl;
+/*
+    *//**
      * Student's data
-     */
+     *//*
     @Override
     public String toString() {
         return "Student{" +
@@ -111,5 +49,5 @@ public class Student {
                 ", apellidos:" + apellidos + '\'' +
                 ", promedio:" + promedio +
                 '}'+ "\n";
-    }
+    }*/
 }
