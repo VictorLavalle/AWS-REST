@@ -1,113 +1,53 @@
 package com.aws.rest.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
+@Table(name = "profesor")
 public class Professor {
 
-    @NotNull(message = "Field must not be empty")
-    @PositiveOrZero(message = "ID cannot be negative")
+    private static final long serialVersionUID = 1L;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_profesor")
     private Long id;
 
     @NotNull(message = "Field must not be empty")
     @PositiveOrZero(message = "employeeNumber cannot be negative")
-    private int employeeNumber;
+    private int numeroEmpleado;
 
     @NotEmpty(message = "Field must not be empty")
-    private String name;
+    private String nombres;
 
     @NotEmpty(message = "Field must not be empty")
-    private String lastName;
+    private String apellidos;
 
-    @NotNull (message = "Field must not be empty")
-    @PositiveOrZero (message = "Class hours cannot be negative")
-    private int classHours;
+    @NotNull(message = "Field must not be empty")
+    @PositiveOrZero(message = "Class hours cannot be negative")
+    private int horasClase;
 
-    /**
-     * Constructors
-     */
-    public Professor() {
-    }
-
-    public Professor(int employeeNumber, String name, String lastName, int classHours) {
-        this.employeeNumber = employeeNumber;
-        this.name = name;
-        this.lastName = lastName;
-        this.classHours = classHours;
-    }
-
-    public Professor(Long id, int employeeNumber, String name, String lastName, int classHours) {
-        this.id = id;
-        this.employeeNumber = employeeNumber;
-        this.name = name;
-        this.lastName = lastName;
-        this.classHours = classHours;
-    }
-
-    /**
-     * Professor's id Getter & Setter
-     */
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    /**
-     * Professor's employeeNumber Getter & Setter
-     */
-    public int getEmployeeNumber() {
-        return employeeNumber;
-    }
-
-    public void setEmployeeNumber(int employeeNumber) {
-        this.employeeNumber = employeeNumber;
-    }
-
-    /**
-     * Professor's name Getter & Setter
-     */
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    /**
-     * Professor's last name Getter & Setter
-     */
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    /**
-     * Professor's class hours Getter & Setter
-     */
-    public int getClassHours() {
-        return classHours;
-    }
-
-    public void setClassHours(int classHours) {
-        this.classHours = classHours;
-    }
 
     @Override
     public String toString() {
         return "Professor{" +
                 "id:" + id +
-                ", employeeNumber:" + employeeNumber +
-                ", name:'" + name + '\'' +
-                ", lastName:'" + lastName + '\'' +
-                ", classHours:'" + classHours + '\'' +
+                ", numeroEmpleado:" + numeroEmpleado +
+                ", nombres:'" + nombres + '\'' +
+                ", apellidos:'" + apellidos + '\'' +
+                ", horasClase:'" + horasClase + '\'' +
                 '}';
     }
 }
