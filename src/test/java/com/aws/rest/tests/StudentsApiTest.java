@@ -1,11 +1,10 @@
 package com.aws.rest.tests;
 
 import com.aws.rest.Constants;
-import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.ContentType;
+import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.specification.RequestSpecification;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,8 +14,8 @@ import static org.hamcrest.core.IsEqual.equalTo;
 
 public class StudentsApiTest {
 
-    private static String URL;
-    private static RequestSpecification SPEC;
+    protected static String URL;
+    protected static RequestSpecification SPEC;
 
     @BeforeAll
     public static void setUrl() {
@@ -27,7 +26,7 @@ public class StudentsApiTest {
     @Test
     public void testInvalidPath() {
         given().spec(SPEC)
-                .get("/studentsinvalidpath")
+                .get("/alumnosinvaidpath")
                 .then()
                 .statusCode(404);
     }
@@ -35,7 +34,7 @@ public class StudentsApiTest {
     @Test
     public void testUnsuportedMethod() {
         given().spec(SPEC)
-                .delete("/students")
+                .delete("/alumnos")
                 .then()
                 .statusCode(405);
     }
@@ -43,7 +42,7 @@ public class StudentsApiTest {
     @Test
     public void testGetAlumnos() {
         given().spec(SPEC)
-                .get("/students")
+                .get("/alumnos")
                 .then()
                 .statusCode(200).contentType(ContentType.JSON);
     }
@@ -51,12 +50,12 @@ public class StudentsApiTest {
     @Test
     public void testPostAlumno() {
 
-        Map<String, Object> alumno = getStudent();
+        Map<String, Object> alumno = getAlumno();
 
         given().spec(SPEC)
                 .contentType(ContentType.JSON)
                 .body(alumno)
-                .post("/students")
+                .post("/alumnos")
                 .then()
                 .statusCode(201).contentType(ContentType.JSON);
     }
@@ -64,95 +63,80 @@ public class StudentsApiTest {
     @Test
     public void testGetAlumnoById() {
 
-        Map<String, Object> alumno = getStudent();
+        Map<String, Object> alumno = getAlumno();
+
+        int alumnoId = crearAlumno(alumno);
 
         given().spec(SPEC)
                 .contentType(ContentType.JSON)
                 .body(alumno)
-                .post("/students")
-                .then()
-                .statusCode(201).contentType(ContentType.JSON);
-
-        given().spec(SPEC)
-                .contentType(ContentType.JSON)
-                .body(alumno)
-                .get("/students/" + alumno.get("id"))
+                .get("/alumnos/" + alumnoId)
                 .then()
                 .statusCode(200).contentType(ContentType.JSON)
-                .body("name", equalTo(alumno.get("name")))
-                .body("registrationID", equalTo(alumno.get("registrationID")));
+                .body("nombres", equalTo(alumno.get("nombres")))
+                .body("matricula", equalTo(alumno.get("matricula")));
     }
 
     @Test
     public void testPutAlumno() {
 
-        Map<String, Object> alumno = getStudent();
+        Map<String, Object> alumno = getAlumno();
+
+        int alumnoId = crearAlumno(alumno);
 
         given().spec(SPEC)
                 .contentType(ContentType.JSON)
                 .body(alumno)
-                .post("/students")
-                .then()
-                .statusCode(201).contentType(ContentType.JSON);
-
-        given().spec(SPEC)
-                .contentType(ContentType.JSON)
-                .body(alumno)
-                .get("/students/" + alumno.get("id"))
+                .get("/alumnos/" + alumnoId)
                 .then()
                 .statusCode(200).contentType(ContentType.JSON)
-                .body("name", equalTo(alumno.get("name")))
-                .body("registrationID", equalTo(alumno.get("registrationID")));
+                .body("nombres", equalTo(alumno.get("nombres")))
+                .body("matricula", equalTo(alumno.get("matricula")));
 
-        alumno.put("name", "Nuevo Eduardo");
-        alumno.put("registrationID", "A" + Constants.getRandomId());
+        alumno.put("nombres", "Nuevo Eduardo");
+        alumno.put("matricula", "A" + Constants.getRandomId());
 
         given().spec(SPEC)
                 .contentType(ContentType.JSON)
                 .body(alumno)
-                .put("/students/" + alumno.get("id"))
+                .put("/alumnos/" + alumnoId)
                 .then()
                 .statusCode(200).contentType(ContentType.JSON);
 
         given().spec(SPEC)
                 .contentType(ContentType.JSON)
                 .body(alumno)
-                .get("/students/" + alumno.get("id"))
+                .get("/alumnos/" + alumnoId)
                 .then()
                 .statusCode(200).contentType(ContentType.JSON)
-                .body("name", equalTo(alumno.get("name")))
-                .body("registrationID", equalTo(alumno.get("registrationID")));
+                .body("nombres", equalTo(alumno.get("nombres")))
+                .body("matricula", equalTo(alumno.get("matricula")));
 
     }
 
     @Test
     public void testPutAlumnoWithWrongFields() {
 
-        Map<String, Object> alumno = getStudent();
+        Map<String, Object> alumno = getAlumno();
+
+        int alumnoId = crearAlumno(alumno);
 
         given().spec(SPEC)
                 .contentType(ContentType.JSON)
                 .body(alumno)
-                .post("/students")
-                .then()
-                .statusCode(201).contentType(ContentType.JSON);
-
-        given().spec(SPEC)
-                .contentType(ContentType.JSON)
-                .body(alumno)
-                .get("/students/" + alumno.get("id"))
+                .get("/alumnos/" + alumnoId)
                 .then()
                 .statusCode(200).contentType(ContentType.JSON)
-                .body("name", equalTo(alumno.get("name")))
-                .body("registrationID", equalTo(alumno.get("registrationID")));
+                .body("nombres", equalTo(alumno.get("nombres")))
+                .body("matricula", equalTo(alumno.get("matricula")));
 
-        alumno.put("name", null);
-        alumno.put("registrationID", -1.223d);
+        alumno.put("nombres", null);
+        alumno.put("matricula", -1.223d);
 
         given().spec(SPEC)
                 .contentType(ContentType.JSON)
                 .body(alumno)
-                .put("/students/" + alumno.get("id"))
+                .put("/alumnos/" + alumnoId)
                 .then()
                 .statusCode(400).contentType(ContentType.JSON);
     }
@@ -162,15 +146,15 @@ public class StudentsApiTest {
 
         Map<String, Object> alumno = new HashMap<>();
         alumno.put("id", 0);
-        alumno.put("name", "");
-        alumno.put("lastName", null);
-        alumno.put("registrationID", Constants.getRandomId());
+        alumno.put("nombres", "");
+        alumno.put("apellidos", null);
+        alumno.put("matricula", Constants.getRandomId());
         alumno.put("promedio", -1.2d);
 
         given().spec(SPEC)
                 .contentType(ContentType.JSON)
                 .body(alumno)
-                .post("/students")
+                .post("/alumnos")
                 .then()
                 .statusCode(400).contentType(ContentType.JSON);
     }
@@ -178,29 +162,24 @@ public class StudentsApiTest {
     @Test
     public void testDeleteAlumno() {
 
-        Map<String, Object> alumno = getStudent();
+        Map<String, Object> alumno = getAlumno();
+
+        int alumnoId = crearAlumno(alumno);
 
         given().spec(SPEC)
                 .contentType(ContentType.JSON)
                 .body(alumno)
-                .post("/students")
-                .then()
-                .statusCode(201).contentType(ContentType.JSON);
-
-        given().spec(SPEC)
-                .contentType(ContentType.JSON)
-                .body(alumno)
-                .get("/students/" + alumno.get("id"))
+                .get("/alumnos/" + alumnoId)
                 .then()
                 .statusCode(200).contentType(ContentType.JSON);
 
         given().spec(SPEC)
-                .delete("/students/" + alumno.get("id"))
+                .delete("/alumnos/" + alumnoId)
                 .then()
                 .statusCode(200);
 
         given().spec(SPEC)
-                .get("/students/" + alumno.get("id"))
+                .get("/alumnos/" + alumnoId)
                 .then()
                 .statusCode(404);
 
@@ -209,28 +188,33 @@ public class StudentsApiTest {
     @Test
     public void testDeleteWrongAlumno() {
 
-        Map<String, Object> alumno = getStudent();
+        Map<String, Object> alumno = getAlumno();
+
+        int alumnoId = crearAlumno(alumno);
 
         given().spec(SPEC)
-                .contentType(ContentType.JSON)
-                .body(alumno)
-                .post("/students")
-                .then()
-                .statusCode(201).contentType(ContentType.JSON);
-
-        given().spec(SPEC)
-                .delete("/students/" + Constants.getRandomId())
+                .delete("/alumnos/" + Constants.getRandomId())
                 .then()
                 .statusCode(404);
 
     }
 
-    private Map<String, Object> getStudent() {
+    protected int crearAlumno(Map<String, Object> alumno) {
+        return given().spec(SPEC)
+                .contentType(ContentType.JSON)
+                .body(alumno)
+                .post("/alumnos")
+                .then()
+                .statusCode(201).contentType(ContentType.JSON)
+                .extract()
+                .path("id");
+    }
+
+    protected Map<String, Object> getAlumno() {
         Map<String, Object> alumno = new HashMap<>();
-        alumno.put("id", Constants.getRandomId());
-        alumno.put("name", "Eduardo");
-        alumno.put("lastName", "Rodriguez");
-        alumno.put("registrationID", "A" + Constants.getRandomId());
+        alumno.put("nombres", "Eduardo");
+        alumno.put("apellidos", "Rodriguez");
+        alumno.put("matricula", "A" + Constants.getRandomId());
         alumno.put("promedio", Constants.getPromedio());
         return alumno;
     }

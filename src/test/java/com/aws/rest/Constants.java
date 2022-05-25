@@ -20,6 +20,6 @@ public class Constants {
     }
 
     public static double getPromedio() {
-        return Math.round(random.nextDouble() * 100d) / 100d;
+        return Math.round(random.nextDouble() * 100d) / 10d;
     }
 }
